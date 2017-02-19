@@ -29,7 +29,7 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
 
     return acc
   }, {})
-  const config2 = new Conf(defaults)
+  const config = new Conf(defaults)
   // construct help message
   const help: string[] = questions.map(function(question) {
     return `--${question.name}='${question.default}'\t(${question.message})`
@@ -41,8 +41,8 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
 
   // persist current command-line flags
   // TODO: should probably be filtered
-  saveConfig(config2, cli.flags)
-  printConfig(config2)
+  saveConfig(config, cli.flags)
+  printConfig(config)
 
   const { useSavedConfig } = await inquirer.prompt([
     {
@@ -54,12 +54,12 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
   ])
 
   if (useSavedConfig) {
-    return config2
+    return config
   } else {
     // use saved configuration as default values
     const questionsWithDefaults = questions.map(function(question) {
       if (question.name) {
-        let value = config2.get(question.name)
+        let value = config.get(question.name)
 
         if (value) {
           // special case the `expand` question since it expects and index
@@ -81,6 +81,6 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
 
     debug('questionsWithDefaults %o', questionsWithDefaults)
 
-    return saveConfig(config2, await inquirer.prompt(questions))
+    return saveConfig(config, await inquirer.prompt(questions))
   }
 }
