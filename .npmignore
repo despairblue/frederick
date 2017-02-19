@@ -1,0 +1,5 @@
+*
+!package.json
+!build
+!build/main.js
+!build/main.map

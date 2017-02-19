@@ -1,0 +1,13 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
+  },
+  "exclude": [ "node_modules" ]
+}
