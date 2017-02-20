@@ -3,3 +3,4 @@
 !build
 !build/main.js
 !build/main.map
+!build/main.d.ts
