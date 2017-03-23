@@ -1,6 +1,6 @@
 {
   "name": "frederick",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "description": "",
   "main": "build/main.js",
   "types": "build/main.d.ts",
