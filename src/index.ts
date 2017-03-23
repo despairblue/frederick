@@ -34,7 +34,7 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
   const projectName = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8')).name
 
   // extract default value for configuration from questions
-  const defaults = questions.reduce(function(acc, question) {
+  const defaults: object = questions.reduce(function(acc, question) {
     if (question.name) {
       acc[question.name] = question.default
     }
@@ -53,46 +53,58 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
 
   // persist current command-line flags
   // TODO: should probably be filtered
-  saveConfig(config, cli.flags)
-  printConfig(config)
+  const newConfig = saveConfig(config, cli.flags)
 
-  const { useSavedConfig } = await inquirer.prompt([
-    {
-      default: true,
-      message: 'Is that correct?',
-      name: 'useSavedConfig',
-      type: 'confirm',
-    },
-  ])
-
-  if (useSavedConfig) {
-    return config
+  if (skipConfirm(defaults, cli.flags)) {
+    return newConfig
   } else {
-    // use saved configuration as default values
-    const questionsWithDefaults = questions.map(function(question) {
-      if (question.name) {
-        let value = config.get(question.name)
+    printConfig(config)
 
-        if (value) {
-          // special case the `expand` question since it expects and index
-          // instead of a value
-          if (question.type === 'expand' && question.choices instanceof Array) {
-            const index = question.choices.findIndex((choice: any) => {
-              return choice.value === value
-            })
+    const { useSavedConfig } = await inquirer.prompt([
+      {
+        default: true,
+        message: 'Is that correct?',
+        name: 'useSavedConfig',
+        type: 'confirm',
+      },
+    ])
 
-            question.default = index
-          } else {
-            question.default = value
+    if (useSavedConfig) {
+      return config
+    } else {
+      // use saved configuration as default values
+      const questionsWithDefaults = questions.map(function(question) {
+        if (question.name) {
+          let value = config.get(question.name)
+
+          if (value) {
+            // special case the `expand` question since it expects and index
+            // instead of a value
+            if (question.type === 'expand' && question.choices instanceof Array) {
+              const index = question.choices.findIndex((choice: any) => {
+                return choice.value === value
+              })
+
+              question.default = index
+            } else {
+              question.default = value
+            }
           }
         }
-      }
 
-      return question
-    })
+        return question
+      })
 
-    debug('questionsWithDefaults %o', questionsWithDefaults)
+      debug('questionsWithDefaults %o', questionsWithDefaults)
 
-    return saveConfig(config, await inquirer.prompt(questions))
+      return saveConfig(config, await inquirer.prompt(questions))
+    }
   }
+}
+
+function skipConfirm (defaults: object, flags: { [key: string]: string }): boolean {
+  const defaultKeys = Object.keys(defaults)
+  const cliKeys = Object.keys(flags)
+
+  return _.difference(defaultKeys, cliKeys).length === 0
 }

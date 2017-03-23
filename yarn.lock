@@ -45,6 +45,10 @@
     "@types/rx" "*"
     "@types/through" "*"
 
+"@types/lodash@^4.14.57":
+  version "4.14.57"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.57.tgz#f0095fb15ec1004455613f3ad73766583e62f830"
+
 "@types/meow@^3.6.1":
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/@types/meow/-/meow-3.6.1.tgz#24fe87385fd24b0dd559641814aa9c5e0f601760"
@@ -420,13 +424,13 @@ ava@^0.18.2:
     unique-temp-dir "^1.0.0"
     update-notifier "^1.0.0"
 
-awesome-typescript-loader@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.0.4.tgz#71391f1fc10eec1fed561adf8a99289813ff2063"
+awesome-typescript-loader@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.1.2.tgz#3df192b91a6285f795ca65e63aad114fbb44f710"
   dependencies:
     colors "^1.1.2"
     enhanced-resolve "^3.1.0"
-    loader-utils "^0.2.16"
+    loader-utils "^1.0.2"
     lodash "^4.17.4"
     mkdirp "^0.5.1"
     object-assign "^4.1.1"
@@ -967,9 +971,9 @@ babylon@^6.1.0, babylon@^6.11.0, babylon@^6.15.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.15.0.tgz#ba65cfa1a80e1759b0e89fb562e27dccae70348e"
 
-backpack-core@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/backpack-core/-/backpack-core-0.1.0.tgz#ea4c199d2e861f1f0cbcd76caa8d69f4fecdcf1f"
+backpack-core@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/backpack-core/-/backpack-core-0.2.1.tgz#e3adce0cf79111c51f2d2e5f5503a8d0706a42dd"
   dependencies:
     babel-core "^6.22.0"
     babel-loader "^6.2.10"
@@ -2606,6 +2610,14 @@ loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
+loader-utils@^1.0.2:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
+  dependencies:
+    big.js "^3.1.3"
+    emojis-list "^2.0.0"
+    json5 "^0.5.0"
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -4021,9 +4033,9 @@ typescript-formatter@^4.1.1:
     editorconfig "^0.13.2"
     glob-expand "^0.2.1"
 
-typescript@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.1.6.tgz#40c7e6e9e5da7961b7718b55505f9cac9487a607"
+typescript@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.1.tgz#4862b662b988a4c8ff691cc7969622d24db76ae9"
 
 uglify-js@^2.7.5:
   version "2.7.5"
