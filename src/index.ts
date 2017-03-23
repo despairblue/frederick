@@ -1,10 +1,16 @@
 import Conf = require('conf')
 import * as Debug from 'debug'
+import * as fs from 'fs'
 import * as inquirer from 'inquirer'
 import * as _ from 'lodash'
 import * as meow from 'meow'
+import * as pkgUp from 'pkg-up'
 
 const debug = Debug('wunderflats:bin-generateCSV:config')
+
+// Prevent caching of this module so module.parent is always accurate
+delete require.cache[__filename]
+const pkgJsonPath = pkgUp.sync(__filename)
 
 function printConfig(config: Conf) {
   console.log('Saved Configuration: \n')
@@ -17,10 +23,16 @@ function printConfig(config: Conf) {
 function saveConfig(confInstance: Conf, config: { [key: string]: string }): Conf {
   _.map(config, (value, key) => key && confInstance.set(key, value))
 
-  return confInstance 
+  return confInstance
 }
 
 export async function getConfigurtion(questions: inquirer.Question[]): Promise<Conf> {
+  if (!pkgJsonPath) {
+    throw new Error('Project name could not be inferred. Please specify the `projectName` option.')
+  }
+
+  const projectName = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8')).name
+
   // extract default value for configuration from questions
   const defaults = questions.reduce(function(acc, question) {
     if (question.name) {
@@ -29,7 +41,7 @@ export async function getConfigurtion(questions: inquirer.Question[]): Promise<C
 
     return acc
   }, {})
-  const config = new Conf(defaults)
+  const config = new Conf({ defaults, projectName })
   // construct help message
   const help: string[] = questions.map(function(question) {
     return `--${question.name}='${question.default}'\t(${question.message})`
