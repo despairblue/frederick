@@ -26,7 +26,7 @@ function saveConfig(confInstance: Conf, config: { [key: string]: string }): Conf
   return confInstance
 }
 
-export async function getConfigurtion(questions: inquirer.Question[]): Promise<Conf> {
+export async function getConfiguration(questions: inquirer.Question[]): Promise<Conf> {
   if (!pkgJsonPath) {
     throw new Error('Project name could not be inferred. Please specify the `projectName` option.')
   }
